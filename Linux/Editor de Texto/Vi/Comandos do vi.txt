@@ -1,0 +1,113 @@
+O Editor de Texto Vi
+
+Historia
+
+Criado por Bill Joy em 1976.
+Em 1991, foi lançado o editor Vim, uma derivação melhorada do vi (o nome Vim é abreviação para Vi IMproved, ou Vi Melhorado). Ele está presente em quase todas as distribuições Linux, oferecendo mais recursos.
+Como é pequeno e leve, pode ser colocado dentro de mídias com pouca capacidade de armazenamento para ser utilizado em manutenção, por exemplo, ou mesmo usá-lo em situações em que há pouco recurso computacional.
+
+
+Para chamar o editor, use esta sintaxe:
+
+vi nome do  arquivo
+
+
+Comandos mais usados
+Para entrar no modo edição que permite alterar o texto, tecle Insert.
+ Enquanto estiver no modo edição o editor não recebe comandos, para retornar ao modo visualização tecle ESC.
+Inserção de caracteres
+
+i - insere texto antes do caractere atual.
+I - insere texto no início da linha atual.
+a - insere texto após o caractere atual.
+A - insere texto no final da linha atual.
+o - abre uma linha abaixo da atual e insere texto nela.
+O - abre uma linha acima da atual e insere texto nela.
+
+Exclusão de caracteres
+
+<DEL> - exclui a letra anterior ao cursor (depende da configuração).
+x - exclui a letra sobre o cursor.
+nx - exclui as próximas n letras.
+dw - exclui o restante da palavra atual (a partir do cursor).
+ndw - exclui as n próximas palavras.
+dd - exclui a linha atual.
+ndd - exclui n linhas a partir da atual.
+u - desfazer. Restaura o que foi apagado por último ou apaga o que foi inserido por último.
+
+
+Substituição de caracteres
+
+s - apaga a letra atual e entra no modo de inserção.
+S - apaga o conteúdo da linha atual e entra no modo de inserção.
+r - substitui a letra atual (não entra no modo de inserção).
+R - entra no modo de substituição (sai com <ESC>).
+~ - inverte a caixa da letra atual (troca maiúscula por minúscula e vice-versa).
+. - repete a última alteração.
+
+
+Movimentação de cursor
+
+
+Em algumas dessas situações as setas também funcionam.
+j - uma linha para baixo
+k - uma linha para cima
+h - um caracter para a esquerda
+l - um caracter para a direita
+b - volta para o início da palavra.
+w - avança para a próxima palavra.
+0 - início da linha
+$ - fim da linha
+nG - vai para a linha n (0G ou G vai para a última linha).
+% - usado com parênteses, colchetes e chaves para achar o par correspondente.
++n - vai n linhas para baixo.
+-n - vai n linhas para cima.
+
+Busca de palavras
+
+/palavra - procura palavra a partir da posição atual.
+?palavra - procura palavra no sentido contrário (na direção do começo do arquivo).
+n - procura próxima ocorrência da última palavra procurada (na mesma direção em que foi buscada).
+# - destaca todas as ocorrências iguais à palavra onde o cursor está posicionado.
+
+
+Operações com buffers
+
+yy ou Y - copia a linha inteira.
+nyy ou nY - copia n linhas.
+ndd - apaga n linhas (a partir da atual). Elas poderão ser recolocadas com os comandos p e P.
+p - coloca após a linha atual a última linha copiada ou apagada.
+P - coloca antes da linha atual a última linha copiada ou apagada.
+
+
+Operações de bloco
+
+:'a,'b[operação] - realiza a operação no bloco contido entre as marcas a e b.
+:d - exclui a linha atual (útil como operação de blocos).
+:s/string1/string2/ - substitui string1 por string2.
+mx - marca a posição atual como x (pode ser usada qualquer letra do alfabeto).
+`x - vai para a posição previamente marcada como x.
+Para ler ou escrever o arquivo (ou parte dele) usam-se os comandos:
+:r arquivo - inserir o conteúdo do arquivo na posição atual do arquivo que está sendo editado.
+:w - salva alterações.
+:w abc - grava arquivo com o nome abc.
+:q - sai se o arquivo não foi modificado.
+:q! - sai descartando quaisquer alterações não gravadas.
+:wq - sai, salvando o arquivo editado.
+ZZ - sai, salvando o arquivo editado.
+Nota: Os comandos podem ser repetidos n vezes, através da inserção de n<command>. (Por exemplo, nk para subir n linhas, nx para apagar n caracteres ou ndd para apagar n linhas, etc.)
+
+
+
+
+
+
+
+
+Referência do Conteúdo
+https://pt.wikipedia.org/wiki/Vi
+
+Bibliografia
+Lamb, Linda; Robbins, Arnold (1998). Learning the vi Editor. Beijing: O´Reily. 327 páginas. ISBN 1-56592-426-6
+Peek, Jerry, O´Reilly, Tim; Loukides, Mike (1997). Unix Power Tools 2ª ed. Beijing: O´Reily. 1073 páginas. ISBN 1-56592-260-3
+
