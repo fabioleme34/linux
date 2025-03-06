@@ -9,15 +9,23 @@ USER="ubuntu"
 # Caminho para armazenar o IP público salvo
 IP_FILE="/home/fabiol/.last_aws_ip"
 
+# Função para conectar via SSH
+connect_ssh() {
+    echo "Conectando-se à instância EC2 com IP $1..."
+    ssh -i $KEY_PATH $USER@$1
+}
+
 # Função para verificar e corrigir fuso horário e hora
 fix_time_and_timezone() {
     TIMEZONE="America/Sao_Paulo"
 
+    # Atualizar os repositórios
+    echo "Atualizando os repositórios do sistema..."
+    sudo apt update -y
+
     # Instalar o pacote de timezone (caso não esteja instalado)
     echo "Instalando o pacote de timezone..."
-    sudo apt install -y tzdata chrony build-essential
-    sudo systemctl start chrony
-    sudo systemctl enable chrony
+    sudo apt install -y tzdata
 
     # Verificar o status atual do fuso horário
     current_timezone=$(timedatectl | grep "Time zone" | awk '{print $3}')
@@ -36,7 +44,7 @@ fix_time_and_timezone() {
 
     # Verificar a hora e o fuso horário do sistema
     echo "Verificando a hora e o fuso horário atual:"
-    sudo timedatectl
+    timedatectl
 
     # Verificar a hora do sistema
     current_time=$(timedatectl | grep "Local time" | awk '{print $3, $4, $5}')
@@ -70,21 +78,6 @@ copy_docker_script() {
     # Concedendo permissões de execução para o arquivo docker.sh
     echo "Concedendo permissões de execução ao arquivo docker.sh..."
     ssh -i $KEY_PATH $USER@$1 "sudo chmod +x /scripts/docker.sh"
-
- # Atualizar os repositórios
-    echo "Atualizando os repositórios do sistema..."
-    ssh -i $KEY_PATH $USER@$1 "sudo apt update && sudo apt upgrade -y"   
-
-
-# Atualizar Timezone
-    echo "Atualizando o timezone do servidor..."
-    ssh -i $KEY_PATH $USER@$1 "sudo timedatectl set-timezone America/Sao_Paulo"
-
-
-# Instala docker
-    echo "Executa a instalação do Docker..."
-    ssh -i $KEY_PATH $USER@$1 "sudo sh /scripts/docker.sh"
-
 }
 
 # Verificar se o arquivo que contém o IP anterior existe
@@ -130,7 +123,7 @@ else
 fi
 
 # Conectar via SSH
-#connect_ssh $EC2_IP
+connect_ssh $EC2_IP
 
 # Corrigir fuso horário e hora
 fix_time_and_timezone
