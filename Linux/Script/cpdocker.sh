@@ -81,9 +81,12 @@ copy_docker_script() {
     ssh -i $KEY_PATH $USER@$1 "sudo timedatectl set-timezone America/Sao_Paulo"
 
 
-# Instala docker
-    echo "Executa a instalação do Docker..."
-    ssh -i $KEY_PATH $USER@$1 "sudo sh /scripts/docker.sh"
+# Na pasta Scriptsr
+    echo "Executa o script  Docker..."
+    ssh -i $KEY_PATH $USER@$1 " sudo sh /scripts/docker.sh" 
+
+
+
 
 }
 
